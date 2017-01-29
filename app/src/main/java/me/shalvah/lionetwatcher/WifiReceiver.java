@@ -1,12 +1,18 @@
 package me.shalvah.lionetwatcher;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.SystemClock;
 import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class WifiReceiver extends BroadcastReceiver
 	{
@@ -21,12 +27,22 @@ public class WifiReceiver extends BroadcastReceiver
 			if (ni.getState() == NetworkInfo.State.CONNECTED)
 			{
 				Log.d("WIFI_INFO: ", "" + ni.toString());
-				WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE) ;
-				WifiInfo wi = wm.getConnectionInfo();
-				if (wi.getSSID().startsWith("LIONET"))
-				{
-					Log.d("WIFI_SPEED", "" + wi.getLinkSpeed());
-				}
+
+				AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+				PendingIntent alarmPendingIntent;
+
+				int alarmId = (int) (Math.random() * 100);
+				Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+				intent.putExtra("alarmId", alarmId);
+				alarmPendingIntent = PendingIntent.getBroadcast(context, alarmId, alarmIntent,
+						0);
+
+				alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
+						SystemClock.elapsedRealtime() - 60*1000,
+						SystemClock.elapsedRealtime() + 30 * 1000,
+						alarmPendingIntent);
+
 			}
 		}
+
 	}

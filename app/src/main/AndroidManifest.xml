@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
 
+
         <receiver
             android:name=".WifiReceiver"
             android:enabled="true"
@@ -27,6 +28,11 @@
             <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE"/>
             </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true">
         </receiver>
     </application>
 
