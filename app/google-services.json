@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "339543615946",
+    "firebase_url": "https://lionetwatcher.firebaseio.com",
+    "project_id": "lionetwatcher",
+    "storage_bucket": "lionetwatcher.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339543615946:android:7fd108bd69e27c89",
+        "android_client_info": {
+          "package_name": "me.shalvah.lionetwatcher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339543615946-i8ojhpm72r81dhiu7uiqefnj53elk0up.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.shalvah.lionetwatcher",
+            "certificate_hash": "A03E11B334555325F53F893B93AEEF4CE85DB629"
+          }
+        },
+        {
+          "client_id": "339543615946-0gbdv8dpog8c2dcg1nhcaqtd84uvhse5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDR4UkWOrqk2kqBYGW2v2Xy1m8-Y4iknss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339543615946-0gbdv8dpog8c2dcg1nhcaqtd84uvhse5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
