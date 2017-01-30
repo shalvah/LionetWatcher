@@ -92,7 +92,7 @@ public class AlarmReceiver extends BroadcastReceiver
 			WifiData wifiData = new WifiData(wifiInfo, currentLongitude, currentLatitude);
 			DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
 
-			Log.d("WIFI_WRITE_RESULT", "" + dbr.child("networks").child(wifiInfo.getBSSID()).setValue
+			Log.d("WIFI_WRITE_RESULT", "" + dbr.child("networks").child(wifiInfo.getSSID()).setValue
 					(wifiData));
 		}
 
