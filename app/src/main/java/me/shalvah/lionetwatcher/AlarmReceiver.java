@@ -33,7 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver
 
 			WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			WifiInfo wi = wm.getConnectionInfo();
-			if (containsAny(wi.getBSSID(), "LIONET@", "Lionet@"))
+			if (containsAny(wi.getSSID(), "LIONET@", "Lionet@"))
 			{
 				LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 				Criteria criteria = new Criteria();
@@ -97,6 +97,7 @@ public class AlarmReceiver extends BroadcastReceiver
 			DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
 
 			String locationKey = ""+ currentLatitude + "LAT|LONG" + currentLongitude;
+			locationKey=locationKey.replaceAll("\\.", "-");
 			Log.d("WIFI_WRITE_RESULT", "" + dbr.child("networks").child(wifiInfo.getSSID()).child
 					(locationKey).setValue
 					(wifiData));
