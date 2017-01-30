@@ -6,24 +6,18 @@ import android.net.wifi.WifiInfo;
 public class WifiData
 	{
 
-		public String bssid;
-		public int speed;
+		public int lastKnownSpeed;
 		public long timestamp;
-		public double latitude;
-		public double longitude;
 
 		public WifiData()
 		{
 
 		}
 
-		public WifiData(WifiInfo wifiInfo, double longitude, double latitude)
+		public WifiData(WifiInfo wifiInfo)
 		{
-			this.bssid = wifiInfo.getBSSID();
-			this.speed = wifiInfo.getLinkSpeed();
+			this.lastKnownSpeed = wifiInfo.getLinkSpeed();
 			this.timestamp = System.currentTimeMillis()/1000;
-			this.latitude = latitude;
-			this.longitude = longitude;
 		}
 
 	}

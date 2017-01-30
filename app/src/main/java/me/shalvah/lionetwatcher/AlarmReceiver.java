@@ -19,15 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AlarmReceiver extends BroadcastReceiver
 	{
-		private WifiInfo wi;
-		private Context context;
 		private Location location;
 
-		//Define a request code to send to Google Play services
-		private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 404;
-
-		private double currentLatitude;
-		private double currentLongitude;
 
 		public AlarmReceiver()
 		{
@@ -37,11 +30,9 @@ public class AlarmReceiver extends BroadcastReceiver
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
-			this.context = context;
-
 
 			WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-			wi = wm.getConnectionInfo();
+			WifiInfo wi = wm.getConnectionInfo();
 			if (wi.getSSID().contains("LIONET@") || wi.getSSID().contains("Lionet@"))
 			{
 				LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
@@ -62,14 +53,13 @@ public class AlarmReceiver extends BroadcastReceiver
 				}
 				location = lm
 						.getLastKnownLocation(lm.getBestProvider
-								(criteria,
-										true));
+								(criteria, true));
 
 				Log.d("WIFI_SPEED", "" + wi.getLinkSpeed());
 				storeWifiData(wi);
 			} else
 			{
-				Log.d("WIFI_SPEED ", "STOPPING_ALARM");
+				Log.d("WIFI_STOP ", "STOPPING_ALARM");
 
 				int alarmId = intent.getExtras().getInt("alarmId");
 				PendingIntent alarmPendingIntent;
@@ -83,16 +73,19 @@ public class AlarmReceiver extends BroadcastReceiver
 
 		}
 
-		private void storeWifiData(WifiInfo wifiInfo)
+		private void storeWifiData(final WifiInfo wifiInfo)
 		{
-			currentLongitude = location.getLongitude();
-			currentLatitude = location.getLatitude();
+			double currentLongitude = location.getLongitude();
+			double currentLatitude = location.getLatitude();
 			Log.d("WIFI_LOC", "Lat: " + currentLatitude + " Long: " + currentLongitude);
 
-			WifiData wifiData = new WifiData(wifiInfo, currentLongitude, currentLatitude);
+			final WifiData wifiData = new WifiData(wifiInfo);
+
 			DatabaseReference dbr = FirebaseDatabase.getInstance().getReference();
 
-			Log.d("WIFI_WRITE_RESULT", "" + dbr.child("networks").child(wifiInfo.getSSID()).setValue
+			String locationKey = ""+ currentLatitude + "LAT|LONG" + currentLongitude;
+			Log.d("WIFI_WRITE_RESULT", "" + dbr.child("networks").child(wifiInfo.getSSID()).child
+					(locationKey).setValue
 					(wifiData));
 		}
 
