@@ -33,7 +33,7 @@ public class AlarmReceiver extends BroadcastReceiver
 
 			WifiManager wm = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 			WifiInfo wi = wm.getConnectionInfo();
-			if (wi.getSSID().contains("LIONET@") || wi.getSSID().contains("Lionet@"))
+			if (containsAny(wi.getBSSID(), "LIONET@", "Lionet@"))
 			{
 				LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 				Criteria criteria = new Criteria();
@@ -71,6 +71,19 @@ public class AlarmReceiver extends BroadcastReceiver
 				alarmManager.cancel(alarmPendingIntent);
 			}
 
+		}
+
+		private boolean containsAny(String haystack, String... needles)
+		{
+			for (String needle:
+			     needles)
+			{
+				if(haystack.contains(needle))
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private void storeWifiData(final WifiInfo wifiInfo)

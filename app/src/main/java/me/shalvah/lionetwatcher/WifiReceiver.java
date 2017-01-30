@@ -13,6 +13,9 @@ import android.util.Log;
 
 public class WifiReceiver extends BroadcastReceiver
 	{
+
+		public static final long POLL_INTERVAL = SystemClock.elapsedRealtime() + 30 * 1000;
+
 		public WifiReceiver()
 		{
 		}
@@ -35,8 +38,8 @@ public class WifiReceiver extends BroadcastReceiver
 						0);
 
 				alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME,
-						SystemClock.elapsedRealtime() - 60*1000,
-						SystemClock.elapsedRealtime() + 30 * 1000,
+						SystemClock.elapsedRealtime() - 600*1000,
+						POLL_INTERVAL,
 						alarmPendingIntent);
 
 			}
