@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LionetWatcher</string>
+    <string name="lionets_map_header">Nearby LIONETs</string>
 </resources>

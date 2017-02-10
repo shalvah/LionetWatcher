@@ -23,7 +23,10 @@ public class WifiReceiver extends BroadcastReceiver
 		@Override
 		public void onReceive(Context context, Intent intent)
 		{
+			//get network info
 			NetworkInfo ni = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+
+			//if wifi is connected
 			if (ni.getState() == NetworkInfo.State.CONNECTED)
 			{
 				Log.d("WIFI_INFO: ", "" + ni.toString());
